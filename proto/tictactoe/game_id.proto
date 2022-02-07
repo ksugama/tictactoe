@@ -1,0 +1,9 @@
+syntax = "proto3";
+package ksugama.tictactoe.tictactoe;
+
+option go_package = "github.com/ksugama/tictactoe/x/tictactoe/types";
+
+message GameId {
+  uint64 idCounter = 1; 
+  
+}

@@ -5,6 +5,8 @@ import "gogoproto/gogo.proto";
 import "google/api/annotations.proto";
 import "cosmos/base/query/v1beta1/pagination.proto";
 import "tictactoe/params.proto";
+import "tictactoe/game_id.proto";
+import "tictactoe/game_state.proto";
 // this line is used by starport scaffolding # 1
 
 option go_package = "github.com/ksugama/tictactoe/x/tictactoe/types";
@@ -15,7 +17,21 @@ service Query {
   rpc Params(QueryParamsRequest) returns (QueryParamsResponse) {
     option (google.api.http).get = "/ksugama/tictactoe/tictactoe/params";
   }
-  // this line is used by starport scaffolding # 2
+  // Queries a GameId by index.
+	rpc GameId(QueryGetGameIdRequest) returns (QueryGetGameIdResponse) {
+		option (google.api.http).get = "/ksugama/tictactoe/tictactoe/game_id";
+	}
+// Queries a GameState by index.
+	rpc GameState(QueryGetGameStateRequest) returns (QueryGetGameStateResponse) {
+		option (google.api.http).get = "/ksugama/tictactoe/tictactoe/game_state/{index}";
+	}
+
+	// Queries a list of GameState items.
+	rpc GameStateAll(QueryAllGameStateRequest) returns (QueryAllGameStateResponse) {
+		option (google.api.http).get = "/ksugama/tictactoe/tictactoe/game_state";
+	}
+
+// this line is used by starport scaffolding # 2
 }
 
 // QueryParamsRequest is request type for the Query/Params RPC method.
@@ -25,6 +41,29 @@ message QueryParamsRequest {}
 message QueryParamsResponse {
   // params holds all the parameters of this module.
   Params params = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryGetGameIdRequest {}
+
+message QueryGetGameIdResponse {
+	GameId GameId = 1 [(gogoproto.nullable) = false];
+}
+message QueryGetGameStateRequest {
+	  string index = 1;
+
+}
+
+message QueryGetGameStateResponse {
+	GameState gameState = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryAllGameStateRequest {
+	cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllGameStateResponse {
+	repeated GameState gameState = 1 [(gogoproto.nullable) = false];
+	cosmos.base.query.v1beta1.PageResponse pagination = 2;
 }
 
 // this line is used by starport scaffolding # 3

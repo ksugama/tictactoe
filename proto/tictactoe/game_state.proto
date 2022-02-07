@@ -1,0 +1,17 @@
+syntax = "proto3";
+package ksugama.tictactoe.tictactoe;
+
+option go_package = "github.com/ksugama/tictactoe/x/tictactoe/types";
+
+message GameState {
+  string index = 1; 
+  string gameId = 2; 
+  string state = 3; 
+  bool turnX = 4; 
+  string playerX = 5; 
+  string playerO = 6; 
+  repeated string board = 7; 
+  string winner = 8; 
+  
+}
+

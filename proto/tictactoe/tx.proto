@@ -7,7 +7,59 @@ option go_package = "github.com/ksugama/tictactoe/x/tictactoe/types";
 
 // Msg defines the Msg service.
 service Msg {
-    // this line is used by starport scaffolding # proto/tx/rpc
+      rpc CreateGame(MsgCreateGame) returns (MsgCreateGameResponse);
+  rpc AcceptGame(MsgAcceptGame) returns (MsgAcceptGameResponse);
+  rpc MakeMove(MsgMakeMove) returns (MsgMakeMoveResponse);
+  rpc CheckGame(MsgCheckGame) returns (MsgCheckGameResponse);
+  rpc MyGames(MsgMyGames) returns (MsgMyGamesResponse);
+// this line is used by starport scaffolding # proto/tx/rpc
+}
+
+message MsgCreateGame {
+  string creator = 1;
+  string opponent = 2;
+}
+
+message MsgCreateGameResponse {
+  string gameId = 1;
+}
+
+message MsgAcceptGame {
+  string creator = 1;
+  string gameId = 2;
+}
+
+message MsgAcceptGameResponse {
+  string result = 1;
+}
+
+message MsgMakeMove {
+  string creator = 1;
+  string gameId = 2;
+  uint64 posX = 3;
+  uint64 posY = 4;
+}
+
+message MsgMakeMoveResponse {
+  string result = 1;
+}
+
+message MsgCheckGame {
+  string creator = 1;
+  string gameId = 2;
+  string board = 3;
+}
+
+message MsgCheckGameResponse {
+  string winner = 1;
+}
+
+message MsgMyGames {
+  string creator = 1;
+}
+
+message MsgMyGamesResponse {
+  repeated string games = 1;
 }
 
 // this line is used by starport scaffolding # proto/tx/message

@@ -3,6 +3,8 @@ package ksugama.tictactoe.tictactoe;
 
 import "gogoproto/gogo.proto";
 import "tictactoe/params.proto";
+import "tictactoe/game_id.proto";
+import "tictactoe/game_state.proto";
 // this line is used by starport scaffolding # genesis/proto/import
 
 option go_package = "github.com/ksugama/tictactoe/x/tictactoe/types";
@@ -10,5 +12,7 @@ option go_package = "github.com/ksugama/tictactoe/x/tictactoe/types";
 // GenesisState defines the tictactoe module's genesis state.
 message GenesisState {
   Params params = 1 [(gogoproto.nullable) = false];
+  GameId gameId = 2;
+  repeated GameState gameStateList = 3 [(gogoproto.nullable) = false];
   // this line is used by starport scaffolding # genesis/proto/state
 }
