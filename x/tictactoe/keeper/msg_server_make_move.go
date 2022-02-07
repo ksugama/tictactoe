@@ -12,7 +12,7 @@ func (k msgServer) MakeMove(goCtx context.Context, msg *types.MsgMakeMove) (*typ
 
 	game, found := k.Keeper.GetGameState(ctx, msg.GameId)
 
-	if !found || game.state != "playing" || !(game.PlayerX == msg.Creator || game.PlayerO == msg.Creator) {
+	if !found || game.State != "playing" || !(game.PlayerX == msg.Creator || game.PlayerO == msg.Creator) {
 		panic("invalid make move message")
 	}
 
@@ -26,8 +26,7 @@ func (k msgServer) MakeMove(goCtx context.Context, msg *types.MsgMakeMove) (*typ
 
 	if game.PlayerX == msg.Creator {
 		game.Board[msg.PosX][msg.PosY] = "X"
-	}
-	else {
+	} else {
 		game.Board[msg.PosX][msg.PosY] = "O"
 	}
 
@@ -37,7 +36,7 @@ func (k msgServer) MakeMove(goCtx context.Context, msg *types.MsgMakeMove) (*typ
 		game.State = "finished"
 	}
 
-	k.keeper.SetGameState(ctx, game)
+	k.Keeper.SetGameState(ctx, game)
 
 	return &types.MsgMakeMoveResponse{}, nil
 }

@@ -5,17 +5,19 @@ import (
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/ksugama/tictactoe/x/tictactoe/types"
+
+	"strconv"
 )
 
 func (k msgServer) CreateGame(goCtx context.Context, msg *types.MsgCreateGame) (*types.MsgCreateGameResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
-	nextGame, found := k.Keeper.GetNextGame(ctx)
+	nextGame, found := k.Keeper.GetGameId(ctx)
 	if !found {
 		panic("NextGame not found")
 	}
 
 	newIndex := strconv.FormatUint(nextGame.IdCounter, 10)
-	newGame := types.gameState{
+	newGame := types.GameState{
 		Index:   newIndex,
 		GameId:  newIndex,
 		State:   "Open",
@@ -30,7 +32,7 @@ func (k msgServer) CreateGame(goCtx context.Context, msg *types.MsgCreateGame) (
 
 	// increment next game id
 	nextGame.IdCounter++
-	k.Keeper.SetNextGame(ctx, nextGame)
+	k.Keeper.SetGameId(ctx, nextGame)
 
 	_ = ctx
 

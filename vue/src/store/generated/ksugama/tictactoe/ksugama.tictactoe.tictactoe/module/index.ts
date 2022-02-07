@@ -4,19 +4,19 @@ import { StdFee } from "@cosmjs/launchpad";
 import { SigningStargateClient } from "@cosmjs/stargate";
 import { Registry, OfflineSigner, EncodeObject, DirectSecp256k1HdWallet } from "@cosmjs/proto-signing";
 import { Api } from "./rest";
-import { MsgMyGames } from "./types/tictactoe/tx";
 import { MsgMakeMove } from "./types/tictactoe/tx";
-import { MsgCreateGame } from "./types/tictactoe/tx";
-import { MsgCheckGame } from "./types/tictactoe/tx";
+import { MsgMyGames } from "./types/tictactoe/tx";
 import { MsgAcceptGame } from "./types/tictactoe/tx";
+import { MsgCheckGame } from "./types/tictactoe/tx";
+import { MsgCreateGame } from "./types/tictactoe/tx";
 
 
 const types = [
-  ["/ksugama.tictactoe.tictactoe.MsgMyGames", MsgMyGames],
   ["/ksugama.tictactoe.tictactoe.MsgMakeMove", MsgMakeMove],
-  ["/ksugama.tictactoe.tictactoe.MsgCreateGame", MsgCreateGame],
-  ["/ksugama.tictactoe.tictactoe.MsgCheckGame", MsgCheckGame],
+  ["/ksugama.tictactoe.tictactoe.MsgMyGames", MsgMyGames],
   ["/ksugama.tictactoe.tictactoe.MsgAcceptGame", MsgAcceptGame],
+  ["/ksugama.tictactoe.tictactoe.MsgCheckGame", MsgCheckGame],
+  ["/ksugama.tictactoe.tictactoe.MsgCreateGame", MsgCreateGame],
   
 ];
 export const MissingWalletError = new Error("wallet is required");
@@ -49,11 +49,11 @@ const txClient = async (wallet: OfflineSigner, { addr: addr }: TxClientOptions =
 
   return {
     signAndBroadcast: (msgs: EncodeObject[], { fee, memo }: SignAndBroadcastOptions = {fee: defaultFee, memo: ""}) => client.signAndBroadcast(address, msgs, fee,memo),
-    msgMyGames: (data: MsgMyGames): EncodeObject => ({ typeUrl: "/ksugama.tictactoe.tictactoe.MsgMyGames", value: MsgMyGames.fromPartial( data ) }),
     msgMakeMove: (data: MsgMakeMove): EncodeObject => ({ typeUrl: "/ksugama.tictactoe.tictactoe.MsgMakeMove", value: MsgMakeMove.fromPartial( data ) }),
-    msgCreateGame: (data: MsgCreateGame): EncodeObject => ({ typeUrl: "/ksugama.tictactoe.tictactoe.MsgCreateGame", value: MsgCreateGame.fromPartial( data ) }),
-    msgCheckGame: (data: MsgCheckGame): EncodeObject => ({ typeUrl: "/ksugama.tictactoe.tictactoe.MsgCheckGame", value: MsgCheckGame.fromPartial( data ) }),
+    msgMyGames: (data: MsgMyGames): EncodeObject => ({ typeUrl: "/ksugama.tictactoe.tictactoe.MsgMyGames", value: MsgMyGames.fromPartial( data ) }),
     msgAcceptGame: (data: MsgAcceptGame): EncodeObject => ({ typeUrl: "/ksugama.tictactoe.tictactoe.MsgAcceptGame", value: MsgAcceptGame.fromPartial( data ) }),
+    msgCheckGame: (data: MsgCheckGame): EncodeObject => ({ typeUrl: "/ksugama.tictactoe.tictactoe.MsgCheckGame", value: MsgCheckGame.fromPartial( data ) }),
+    msgCreateGame: (data: MsgCreateGame): EncodeObject => ({ typeUrl: "/ksugama.tictactoe.tictactoe.MsgCreateGame", value: MsgCreateGame.fromPartial( data ) }),
     
   };
 };
